@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -6,8 +6,39 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { exerciseOptions, fetchData } from "../utils/fetchData";
 
 const SearchExercises = () => {
+
+const [search, setSearch] = useState('')
+const [exercises, setExercises] = useState([])
+const [bodyparts, setBodyParts] = useState([])
+
+useEffect(() => {
+  const fetchExercisesData = async () => {
+    const bodyPartsData = await fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions)
+  }
+  setBodyParts(['all', ...bodyPartsData]);
+
+  fetchExercisesData();                   
+}, [])
+
+const handleSearch = async () => {
+  if(search) {
+    const exerciseData = await fetchData
+    ('https://exercisedb.p.rapidapi.com/exercises/targetList', exerciseOptions);
+
+   const searchedExcerises = exerciseData.filter(
+    (excercise) => excercise.name.toLowerCase().includes(search)
+    || excercise.target.toLowerCase().includes(search)
+    || excercise.equipment.toLowerCase().includes(search)
+    || excercise.bodyPart.toLowerCase().includes(search)
+   );                 
+    setSearch('');
+    setExercises(SearchExercises);
+  }
+}
+
   return (
     <Stack
       alignItems="center"
@@ -40,6 +71,8 @@ const SearchExercises = () => {
           }}
           placeholder="Search Exercises"
           type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value.toLowerCase())}
         />
         <Button
           className="search-btn"
@@ -53,6 +86,7 @@ const SearchExercises = () => {
             right: "0px",
             fontSize: { lg: "20px", xs: "14px" },
           }}
+          onClick={handleSearch}
         >
           Search
         </Button>
@@ -63,7 +97,9 @@ const SearchExercises = () => {
           width: "100%",
           p: "20px",
         }}
-      ></Box>
+      >
+        <HorizontalScrollbar data={bodyParts}/>
+      </Box>
     </Stack>
   );
 };
