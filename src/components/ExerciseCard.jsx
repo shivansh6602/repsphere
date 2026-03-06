@@ -12,7 +12,7 @@ const ExerciseCard = ({ exercise }) => {
       <Box
   sx={{
     width: { lg: "300px", xs: "260px" },
-    height: "380px", // ✅ Fixed height for all cards
+    height: "380px", 
     display: "flex",
     flexDirection: "column",
     borderRadius: "20px",
@@ -31,7 +31,7 @@ const ExerciseCard = ({ exercise }) => {
   }}
 >
 
-        {/* 🔥 Image Section (Half Height) */}
+       
         <Box
           sx={{
             width: "100%",
@@ -48,7 +48,7 @@ const ExerciseCard = ({ exercise }) => {
               height: "100%",
               objectFit: "cover",
              
-              transform: "scale(1.1)", // avoids blur white edges
+              transform: "scale(1.1)",
             }}
           />
         </Box>
@@ -56,14 +56,14 @@ const ExerciseCard = ({ exercise }) => {
        <Box
   sx={{
     p: 3,
-    flex: 1, // makes content take remaining space
+    flex: 1, 
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
   }}
 >
 
-          {/* Top Red Accent Bar */}
+         
           <Box
             sx={{
               width: "40px",
@@ -74,7 +74,7 @@ const ExerciseCard = ({ exercise }) => {
             }}
           />
 
-          {/* Exercise Name */}
+          
           <Typography
             variant="h6"
             fontWeight="600"
@@ -87,7 +87,7 @@ const ExerciseCard = ({ exercise }) => {
             {exercise.name}
           </Typography>
 
-          {/* Info Section */}
+         
           <Stack spacing={1}>
             <Typography sx={{ fontSize: "14px", color: "#666" }}>
               <strong style={{ color: "#FF2625" }}>Body Part:</strong>{" "}

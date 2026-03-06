@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+ --fitness-red: 0 87% 57%;
+--fitness-red-light: 0 100% 96%;
+--fitness-text: 220 10% 13%;
+--fitness-text-muted: 220 5% 33%;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
