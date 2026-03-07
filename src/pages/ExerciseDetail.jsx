@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 
-import { exerciseOptions, fetchData, youtubeOptions } from "../utils/fetchData";
+import { exerciseOptions, fetchData } from "../utils/fetchData";
 
 import Detail from "../components/Detail";
 import ExerciseVideos from "../components/ExerciseVideos";
@@ -29,33 +29,31 @@ useEffect(() => {
  );
 setExerciseDetail(exerciseDetailData);
 
-setExerciseVideos([]);
-// //ExerciseVideos
-// const youtubeSearchUrl = "https://youtube-search-and-download.p.rapidapi.com";
-// const exerciseVideosData = await fetchData(
-//   `${youtubeSearchUrl}/search?query=${exerciseDetailData.name} exercise`,
-//   youtubeOptions
-// );
-// console.log("Exercise Detail:", exerciseDetailData);
-// console.log("Videos:", exerciseVideosData);
 
-// setExerciseVideos(exerciseVideosData.contents);
+const youtubeSearchUrl = "https://www.googleapis.com/youtube/v3/search";
 
-//ExerciseData
+const youtubeVideosResponse = await fetch(
+  `${youtubeSearchUrl}?part=snippet&q=${exerciseDetailData.name} exercise&type=video&maxResults=4&key=${import.meta.env.VITE_YOUTUBE_API_KEY}`
+);
+
+const youtubeVideosData = await youtubeVideosResponse.json();
+setExerciseVideos(youtubeVideosData.items || []);
+
+
 const targetMuscleExerciseData = await fetchData (
   `${exerciseDbURL}/exercises/target/${exerciseDetailData.target}`,
   exerciseOptions
 );
 setTargetMuscleExercises(targetMuscleExerciseData)
   
+
+
 const equipmentExerciseData = await fetchData(
   `${exerciseDbURL}/exercises/equipment/${exerciseDetailData.equipment}`,
   exerciseOptions
 )
 setEquipmentExercises(equipmentExerciseData)
-console.log("Exercise Detail:", exerciseDetailData);
-console.log("Target Exercises:", targetMuscleExerciseData);
-console.log("Equipment Exercises:", equipmentExerciseData);
+
 };
   
 

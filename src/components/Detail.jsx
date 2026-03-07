@@ -99,7 +99,7 @@ const Detail = ({ exerciseDetail }) => {
           display: "flex",
           flexDirection: "column",
           gap: "24px",
-          marginBottom: "171px",
+          marginBottom: "76px",
         }}
       >
         
