@@ -3,32 +3,27 @@ import { Box } from "@mui/material";
 import HeroBanner from "../components/HeroBanner";
 import SearchExcersises from "../components/SearchExcersises";
 import Exercises from "../components/Exercises";
-import { fetchData, exerciseOptions } from "../utils/fetchData";
+import rawExercises from "../data/exercises.json";
+import { formatExercises } from "../utils/formatExercises";
 
 const Home = () => {
   const [bodyPart, setBodyPart] = useState("all");
   const [exercises, setExercises] = useState([]);
 
   useEffect(() => {
-    const fetchExercisesData = async () => {
-      let exercisesData = [];
 
-      if (bodyPart === "all") {
-        exercisesData = await fetchData(
-          "https://exercisedb.p.rapidapi.com/exercises",
-          exerciseOptions
-        );
-      } else {
-        exercisesData = await fetchData(
-          `https://exercisedb.p.rapidapi.com/exercises/bodyPart/${bodyPart}`,
-          exerciseOptions
-        );
-      }
+    const formattedData = formatExercises(rawExercises);
 
-      setExercises(exercisesData);
-    };
+    if (bodyPart === "all") {
+      setExercises(formattedData);
+    } else {
+      const filteredExercises = formattedData.filter(
+        (item) => item.bodyPart === bodyPart
+      );
 
-    fetchExercisesData();
+      setExercises(filteredExercises);
+    }
+
   }, [bodyPart]);
 
   return (

@@ -1,96 +1,66 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
+import React, { useEffect, useState } from "react";
 import HorizontalScrollbar from "./HorizontalScrollbar";
-import {
-  Box,
-  Button,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import {
-  exerciseOptions,
-  fetchData,
-} from "../utils/fetchData";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import BodyPart from "./BodyPart";
 
-const SearchExercises = ({
-  setExercises,
-  bodyPart,
-  setBodyPart,
-}) => {
+import rawExercises from "../data/exercises.json";
+import { formatExercises } from "../utils/formatExercises";
+
+const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
+
   const [search, setSearch] = useState("");
   const [bodyParts, setBodyParts] = useState([]);
 
   useEffect(() => {
-    const fetchExercisesData = async () => {
-      const bodyPartsData = await fetchData(
-        "https://exercisedb.p.rapidapi.com/exercises/bodyPartList",
-        exerciseOptions,
-      );
 
-      setBodyParts(["all", ...bodyPartsData]);
-    };
+    const formattedData = formatExercises(rawExercises);
 
-    fetchExercisesData();
+    const uniqueBodyParts = [
+      "all",
+      ...new Set(formattedData.map((item) => item.bodyPart)),
+    ];
+
+    setBodyParts(uniqueBodyParts);
+
   }, []);
 
-  const handleSearch = async () => {
+  const handleSearch = () => {
+
+    const formattedData = formatExercises(rawExercises);
+
     if (search) {
-      const exerciseData = await fetchData(
-        `https://exercisedb.p.rapidapi.com/exercises/name/${search}`,
-        exerciseOptions,
+
+      const searchedExercises = formattedData.filter(
+        (exercise) =>
+          exercise.name.toLowerCase().includes(search) ||
+          exercise.target.toLowerCase().includes(search) ||
+          exercise.equipment.toLowerCase().includes(search) ||
+          exercise.bodyPart.toLowerCase().includes(search)
       );
 
-      const searchedExcerises =
-        exerciseData.filter(
-          (excercise) =>
-            excercise.name
-              .toLowerCase()
-              .includes(search) ||
-            excercise.target
-              .toLowerCase()
-              .includes(search) ||
-            excercise.equipment
-              .toLowerCase()
-              .includes(search) ||
-            excercise.bodyPart
-              .toLowerCase()
-              .includes(search),
-        );
       setSearch("");
-      setExercises(searchedExcerises);
+      setExercises(searchedExercises);
     }
   };
 
   return (
-    <Stack
-      alignItems="center"
-      mt="37px"
-      justifyContent="center"
-      p="20px"
-    >
+    <Stack alignItems="center" mt="37px" justifyContent="center" p="20px">
+
       <Typography
         fontWeight={700}
-        sx={{
-          fontSize: { lg: "44px", xs: "30px" },
-        }}
+        sx={{ fontSize: { lg: "44px", xs: "30px" } }}
         mb="49px"
         textAlign="center"
       >
         Awesome Exercises You <br /> Should Know
       </Typography>
+
       <Box position="relative" mb="72px">
+
         <TextField
           height="76px"
           sx={{
-            input: {
-              fontWeight: "700",
-              border: "none",
-              borderRadius: "4px",
-            },
+            input: { fontWeight: "700", border: "none", borderRadius: "4px" },
             width: { lg: "1170px", xs: "350px" },
             backgroundColor: "#fff",
             borderRadius: "40px",
@@ -98,12 +68,9 @@ const SearchExercises = ({
           placeholder="Search Exercises"
           type="text"
           value={search}
-          onChange={(e) =>
-            setSearch(
-              e.target.value.toLowerCase(),
-            )
-          }
+          onChange={(e) => setSearch(e.target.value.toLowerCase())}
         />
+
         <Button
           className="search-btn"
           sx={{
@@ -120,20 +87,19 @@ const SearchExercises = ({
         >
           Search
         </Button>
+
       </Box>
-      <Box
-        sx={{
-          position: "relative",
-          width: "100%",
-          p: "20px",
-        }}
-      >
+
+      <Box sx={{ position: "relative", width: "100%", p: "20px" }}>
+
         <HorizontalScrollbar
           data={bodyParts}
           bodyPart={bodyPart}
           setBodyPart={setBodyPart}
         />
+
       </Box>
+
     </Stack>
   );
 };

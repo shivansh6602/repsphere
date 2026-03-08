@@ -51,7 +51,7 @@ const ExerciseVideos = ({ exerciseVideos, name }) => {
 
       <Grid container spacing={3}>
 
-        {exerciseVideos.slice(0, 8).map((video, index) => (
+        {exerciseVideos.slice(0, 3).map((video, index) => (
 
           <Grid item xs={12} sm={6} md={3} key={video.id.videoId}>
 

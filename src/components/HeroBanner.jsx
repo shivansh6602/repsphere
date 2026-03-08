@@ -4,18 +4,19 @@ import HeroBannerImage from "../assets/images/banner.png";
 
 const HeroBanner = () => {
   return (
-    <Box
-      sx={{
-        position: "relative",
-        height: "98vh",
-        width: "100%",
-        backgroundImage: `url(${HeroBannerImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
+ <Box
+  sx={{
+    position: "relative",
+    height: "100vh",
+    width: "100vw",
+    backgroundImage: `url(${HeroBannerImage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    display: "flex",
+    alignItems: "center",
+  }}
+>
      
       <Box
         sx={{
@@ -66,23 +67,21 @@ const HeroBanner = () => {
       </Box>
 
    
-      <Typography
-        sx={{
-          position: "absolute",
-          bottom: "45px",
-          left: "50%",
-          transform: "translateX(-50%)",
-          fontSize: { lg: "40px", xs: "28px" },
-          fontWeight: "900",
-          color: "#FF2625",
-          letterSpacing: "4px",  
-        fontSize: "109px",
-        fontFamily: "fantasy",
-        marginLeft: "1%",
-        }}
-      >
-        STAY FIT
-      </Typography>
+    <Typography
+  sx={{
+    position: "absolute",
+    bottom: "45px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    fontSize: { lg: "109px", xs: "60px" },
+    fontWeight: "900",
+    color: "#FF2625",
+    letterSpacing: "4px",
+    fontFamily: "fantasy",
+  }}
+>
+  STAY FIT
+</Typography>
     </Box>
   );
 };

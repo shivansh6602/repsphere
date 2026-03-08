@@ -62,11 +62,12 @@ const Detail = ({ exerciseDetail }) => {
           ease: "easeOut",
         }}
       >
-        <motion.img
-          src={
-            gifUrl ||
-            "https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg"
-          }
+   <motion.img
+  src={gifUrl}
+  onError={(e) => {
+    e.target.src =
+      "https://images.pexels.com/photos/2261477/pexels-photo-2261477.jpeg";
+  }}
           alt={name}
           loading="lazy"
           whileHover={{ scale: 1.03 }}

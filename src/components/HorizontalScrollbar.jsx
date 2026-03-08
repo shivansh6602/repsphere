@@ -18,7 +18,7 @@ const HorizontalScrollbar = ({ data, bodyPart, setBodyPart }) => {
   };
 
   return (
-    <Box position="relative">
+    <Box position="relative" fontFamily={"sans-serif"}>
 
       
       <Typography
