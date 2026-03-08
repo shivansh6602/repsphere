@@ -20,7 +20,7 @@ const HorizontalScrollbar = ({ data, bodyPart, setBodyPart }) => {
   return (
     <Box position="relative">
 
-      {/* Left Arrow */}
+      
       <Typography
         onClick={scrollLeft}
         sx={{
@@ -34,7 +34,7 @@ const HorizontalScrollbar = ({ data, bodyPart, setBodyPart }) => {
         <img src={LeftArrowIcon} alt="left-arrow" />
       </Typography>
 
-      {/* Right Arrow */}
+      
       <Typography
         onClick={scrollRight}
         sx={{
@@ -48,7 +48,7 @@ const HorizontalScrollbar = ({ data, bodyPart, setBodyPart }) => {
         <img src={RightArrowIcon} alt="right-arrow" />
       </Typography>
 
-      {/* Scrollable Row */}
+     
       <Stack
         ref={scrollRef}
         direction="row"
@@ -61,15 +61,19 @@ const HorizontalScrollbar = ({ data, bodyPart, setBodyPart }) => {
           "&::-webkit-scrollbar": { display: "none" }
         }}
       >
-        {data.map((item) => (
+        {data.map((item) => {
+          
+          return (
           <Box key={item.id || item} sx={{ flex: "0 0 auto" }}>
             <BodyPart
               item={item}
               bodyPart={bodyPart}
               setBodyPart={setBodyPart}
+            
             />
           </Box>
-        ))}
+          );
+        })}
       </Stack>
 
     </Box>

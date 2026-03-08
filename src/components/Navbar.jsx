@@ -1,52 +1,92 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Stack } from '@mui/material'
-import Logo from '../assets/images/Logo.png'
+import React from "react";
+import { Link,NavLink } from "react-router-dom";
+import { Stack, Typography, Box } from "@mui/material";
+import Logo from "../assets/images/Logo.png";
 
-const Navbar = () => (
-  <Stack
-    direction="row"
-    justifyContent="space-around"
-    sx={{
-      gap: { sm: '123px', xs: '40px' },
-      mt: { sm: '32px', xs: '20px' }
-    }}
-    px={2}
-  >
-    <Link to="/">
-      <img
-        src={Logo}
-        alt="logo"
-        style={{ width: '48px', height: '48px', margin: '0px 20px' }}
-      />
-    </Link>
-
-    <Stack
-      direction="row"
-      gap="40px"
-      fontFamily="Alegreya"
-      fontSize="24px"
-      alignItems="flex-end"
+const Navbar = () => {
+  return (
+    <Box
+      sx={{
+        position: "sticky",
+        top: 0,
+        background: "#fff",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+        zIndex: 1000
+      }}
     >
-      <Link
-        to="/"
-        style={{
-          textDecoration: 'none',
-          color: '#3A1212',
-          borderBottom: '3px solid #FF2625'
-        }}
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        px={{ lg: "80px", xs: "20px" }}
+        py="10px"
       >
-        Home
-      </Link>
+      
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <img
+              src={Logo}
+              alt="logo"
+              style={{
+                width: "40px",
+                height: "40px",
+                objectFit: "contain"
+              }}
+            />
 
-      <a
-        href="#exercises"
-        style={{ textDecoration: 'none', color: '#3A1212' }}
-      >
-        Exercises
-      </a>
-    </Stack>
-  </Stack>
-)
+            <Typography
+              sx={{
+                fontWeight: 800,
+                fontSize: "26px",
+                fontFamily: "sans-serif",
+                display: "flex",
+                alignItems: "center"
+              }}
+            >
+              <span style={{ color: "#FF2625" }}>Rep</span>
+              <span style={{ color: "#222" }}>Sphere</span>
+            </Typography>
+          </Stack>
+        </Link>
 
-export default Navbar
+       <Stack
+  direction="row"
+  spacing={4}
+  sx={{
+    fontFamily: "sans-serif",
+    fontSize: "18px",
+    fontWeight: 600
+  }}
+>
+
+  <NavLink
+    to="/"
+    style={({ isActive }) => ({
+      textDecoration: "none",
+      color: "#222",
+      borderBottom: isActive ? "3px solid #FF2625" : "none",
+      paddingBottom: "4px"
+    })}
+  >
+    Home
+  </NavLink>
+
+  <NavLink
+    to="/#exercises"
+    style={({ isActive }) => ({
+      textDecoration: "none",
+      color: "#222",
+      borderBottom: isActive ? "3px solid #FF2625" : "none",
+      paddingBottom: "4px"
+    })}
+  >
+    Exercises
+  </NavLink>
+
+</Stack>
+      </Stack>
+    </Box>
+  );
+};
+
+export default Navbar;

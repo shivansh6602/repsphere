@@ -24,14 +24,14 @@ const Footer = () => {
         }}
       >
       
-<Typography sx={{display: "flex", fontSize: "25px", fontWeight: "800"}}>
+<Box sx={{display: "flex", fontSize: "25px", fontWeight: "800"}}>
         <img
           src={Logo}
           alt="Repsphere logo"
           style={{ width: "40px", height: "40px" }}
         />
-        <p style={{marginTop: "10px"}}>Repsphere</p>
-</Typography>
+        <Typography style={{marginTop: "10px"}}>Repsphere</Typography>
+</Box>
 
         <Typography
           sx={{
